@@ -1,0 +1,120 @@
+import components.simplereader.SimpleReader;
+import components.simplereader.SimpleReader1L;
+import components.simplewriter.SimpleWriter;
+import components.simplewriter.SimpleWriter1L;
+import components.utilities.FormatChecker;
+
+/**
+ * Put a short phrase describing the program here.
+ *
+ * @author Put your name here
+ *
+ */
+public final class ABCDGuesser1 {
+
+    /**
+     * Private constructor so this utility class cannot be instantiated.
+     */
+    private ABCDGuesser1() {
+    }
+
+    /**
+     * Repeatedly asks the user for a positive real number until the user enters
+     * one. Returns the positive real number.
+     *
+     * @param in
+     *            the input stream
+     * @param out
+     *            the output stream
+     * @return a positive real number entered by the user
+     */
+    private static double getPositiveDouble(SimpleReader in, SimpleWriter out) {
+        double inputNum = 0;
+
+        // Use the flag to determine when to exit the loop.
+        boolean flag = true;
+        while (flag) {
+            out.println("Please input a positive real number: ");
+            String input = in.nextLine();
+            // Check whether the user input a real number.
+            if (FormatChecker.canParseDouble(input)) {
+                // Check whether the user input a positive ral number.
+                if (Double.parseDouble(input) > 0) {
+                    inputNum = Double.parseDouble(input);
+                } else {
+                    out.println("Sorry, please try again!");
+                }
+            } else if (input.equals("one")) {
+                out.println("OK, we are done!");
+                flag = false;
+            } else {
+                out.println("Sorry, please try again!");
+            }
+        }
+        return inputNum;
+    }
+
+    /**
+     * Repeatedly asks the user for a positive real number not equal to 1.0
+     * until the user enters one. Returns the positive real number.
+     *
+     * @param in
+     *            the input stream
+     * @param out
+     *            the output stream
+     * @return a positive real number not equal to 1.0 entered by the user
+     */
+    private static double getPositiveDoubleNotOne(SimpleReader in,
+            SimpleWriter out) {
+        double inputNum = 0;
+
+        // Use the flag to determine when to exit the loop.
+        boolean flag = true;
+        while (flag) {
+            out.println("Please input a positive real number: ");
+            String input = in.nextLine();
+            // Check whether the user input a real number.
+            if (FormatChecker.canParseDouble(input)) {
+                // Check whether the user input a positive real number.
+                if (Double.parseDouble(input) > 0) {
+                    inputNum = Double.parseDouble(input);
+                    // Check whether the user input one.
+                    if (inputNum == 1) {
+                        out.println("OK, we are done!");
+                        flag = false;
+                    }
+                } else {
+                    out.println("Sorry, please try again!");
+                }
+            } else {
+                out.println("Sorry, please try again!");
+            }
+        }
+        return inputNum;
+    }
+
+    /**
+     * Main method.
+     *
+     * @param args
+     *            the command line arguments
+     */
+    public static void main(String[] args) {
+        SimpleReader in = new SimpleReader1L();
+        SimpleWriter out = new SimpleWriter1L();
+
+        // Ask the user to select any positive real-valued number as μ.
+        out.println("Please provide a positive real number as μ: ");
+        double mu = in.nextDouble();
+
+        double[] exponent = new double[] { -5.0, -4.0, -3.0, -2.0, -1.0,
+                -1.0 / 2.0, -1.0 / 3.0, -1.0 / 4.0, 0.0, 1.0 / 4.0, 1.0 / 3.0,
+                1.0 / 2.0, 1.0, 2.0, 3.0, 4.0, 5.0 };
+        /*
+         * Close input and output streams
+         */
+        in.close();
+        out.close();
+    }
+
+}
